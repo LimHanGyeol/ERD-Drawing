@@ -1,0 +1,46 @@
+boardProject 개요
+게시판 주요 기능이 있는 프로젝트
+
+------주요 기능
+- 사용자 닉네임, 패스워드 정보
+- 게시물 쓰기, 읽기, 수정, 삭제
+- 댓글 쓰기, 읽기, 수정, 삭제
+
+------테이블 구성
+- USER TABLE
+- POST TABLE
+- COMMENT TABLE
+- WRITE TABLE
+
+------연관 관계 매핑 Cardinality
+USER_TB ~ COMMENT_TB
+- 일 대 다 (One To Many)
+- USER_TB (Mendatory)
+- COMMENT_TB (Optional)
+
+POST_TB ~ COMMENT_TB
+- 일 대 다 (One To Many)
+- POST_TB (Mendatory)
+- COMMENT_TB (Optional)
+
+USER_TB ~ POST_TB (Mapping Table - WRITE_TB)
+- 일 대 다 (One To Many)
+- POST_TB (Mendatory) ~ WRITE_TB (Optional)
+- USER_TB (Mendatory) ~ WRITE_TB (Mendatory)
+
+------FOREIGN KEY
+COMMENT_TB
+post_id
+ON DELETE CASCADE
+ON UPDATE NO ACTION
+user_id
+ON DELETE NO ACTION
+ON UPDATE CASCADE
+
+WRITE_TB
+post_id
+ON DELETE CASCADE
+ON UPDATE CASCADE
+user_id
+ON DELETE NO ACTION
+ON UPDATE CASCADE
