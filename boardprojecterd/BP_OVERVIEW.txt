@@ -1,46 +1,43 @@
-boardProject 개요
+------boardProject 개요
 게시판 주요 기능이 있는 프로젝트
 
 ------주요 기능
-- 사용자 닉네임, 패스워드 정보
-- 게시물 쓰기, 읽기, 수정, 삭제
-- 댓글 쓰기, 읽기, 수정, 삭제
+* 사용자 닉네임, 패스워드 정보
+* 게시물 쓰기, 읽기, 수정, 삭제
+* 댓글 쓰기, 읽기, 수정, 삭제
 
 ------테이블 구성
-- USER TABLE
-- POST TABLE
-- COMMENT TABLE
-- WRITE TABLE
+* USER TABLE
+* POST TABLE
+* COMMENT TABLE
 
 ------연관 관계 매핑 Cardinality
-USER_TB ~ COMMENT_TB
+* USER_TB ~ COMMENT_TB
 - 일 대 다 (One To Many)
 - USER_TB (Mendatory)
 - COMMENT_TB (Optional)
 
-POST_TB ~ COMMENT_TB
+* POST_TB ~ COMMENT_TB
 - 일 대 다 (One To Many)
 - POST_TB (Mendatory)
 - COMMENT_TB (Optional)
 
-USER_TB ~ POST_TB (Mapping Table - WRITE_TB)
+* USER_TB ~ POST_TB
 - 일 대 다 (One To Many)
-- POST_TB (Mendatory) ~ WRITE_TB (Optional)
-- USER_TB (Mendatory) ~ WRITE_TB (Mendatory)
+- POST_TB (Optional)
+- USER_TB (Mendatory)
 
 ------FOREIGN KEY
-COMMENT_TB
+* COMMENT_TB
 post_id
-ON DELETE CASCADE
-ON UPDATE NO ACTION
+ON DELETE CASCADE        // 게시물이 삭제되면 댓글 전체 삭제
+ON UPDATE NO ACTION    // 게시물이 수정되면 댓글 내용 변동 없음
 user_id
-ON DELETE NO ACTION
-ON UPDATE CASCADE
+ON DELETE NO ACTION    // 사용자가 탈퇴시 작성한 댓글은 변동 없음
+ON UPDATE CASCADE       // 사용자 정보 수정시 댓글의 닉네임도 수정됨 
 
-WRITE_TB
-post_id
-ON DELETE CASCADE
-ON UPDATE CASCADE
+* POST_TB
 user_id
-ON DELETE NO ACTION
-ON UPDATE CASCADE
+ON DELETE NO ACTION    // 사용자 탈퇴시 게시물은 변동 없음
+ON UPDATE CASCADE       // 사용자 정보(닉네임) 수정시 게시물의 닉네임도 수정됨
+
